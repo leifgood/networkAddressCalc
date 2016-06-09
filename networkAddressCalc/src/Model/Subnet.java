@@ -11,17 +11,7 @@ public class Subnet {
 	private Network network;
 	private IPv4Address ipv4SubnetID;
 	private IPv6Address ipv6SubnetID;
-	
-	public Subnet(String department, int ipv4Praefix, ArrayList<Host> hosts,
-			int ipv6Praefix, Network network, IPv4Address ipv4SubnetID,
-			IPv6Address ipv6SubnetID, String description) throws Exception {
-		this.setDepartment(department);
-		this.setIpv4Praefix(ipv4Praefix);
-		this.setHosts(hosts);
-		this.setNetwork(network);
-		this.setIpv4SubnetID(ipv4SubnetID);
-	}
-	
+		
 	public Subnet(){
 		department = "";
 		ipv4Praefix = -1;
@@ -31,6 +21,37 @@ public class Subnet {
 		ipv6SubnetID = null;
 	}
 	
+	public void setByHostCount( int hostCount, String department ) throws Exception{
+		setDepartment(department);
+		this.setIpv4Praefix(createPraefix(hostCount));
+		this.setIpv4SubnetID( network.createSubnetID(ipv4Praefix) );
+		if ( ipv4SubnetID == null )
+			throw new IllegalArgumentException( "Das Subnet passt nicht mehr ins Netzwerk");
+		if( network.hasIpv6() )
+			this.setIpv6SubnetID( network.createIPv6Subnet() );
+		createHosts( hostCount );
+	}
+	
+	private void createHosts(int hostCount){
+		IPv4Address ipv4address = new IPv4Address( ipv4SubnetID );
+		IPv6Address ipv6address = network.hasIpv6() ? new IPv6Address( ipv6SubnetID ) : null;
+		for( int i = 0; i < hostCount; ++i )
+		{
+			Host host = new Host();
+			host.setName("Host" + i);
+			host.setIpv4Address( IPv4Address.addOne(ipv4address) );
+			host.setIpv6Address( network.hasIpv6() ? IPv6Address.addOne(ipv6address) : null );
+			hosts.add(host);
+		}
+	}
+
+	private int createPraefix(int hostCount) {
+		int i = 0;
+		while( Math.pow(2, i) - 2 < hostCount )
+			i++;
+		return 32 - i;
+	}
+
 	public void addHost( Host host ){
 		hosts.add(host);
 	}
@@ -100,7 +121,7 @@ public class Subnet {
 	public void setIpv4Praefix(int ipv4Praefix) throws Exception {
 		if( network == null )
 			throw new InstanceNotFoundException("Das Subnetz ist noch keinem Netzwerk zugeordnet");
-		if( ipv4Praefix < network.getPraefixByClass() )
+		if( ipv4Praefix < network.getIpv4Praefix() )
 			throw new IllegalArgumentException("Das Subnetz ist größer als das zugeordnete Netzwerk");
 		this.ipv4Praefix = ipv4Praefix;
 	}

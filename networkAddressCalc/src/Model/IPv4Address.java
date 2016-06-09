@@ -37,6 +37,10 @@ public class IPv4Address {
 		this.bytes = bytes;
 	}
 	
+	public IPv4Address(IPv4Address address) {
+		bytes = address.bytes;
+	}
+
 	public String toBinary(){
 		String address = "";
 		for( int i = 0; i < bytes.length; ++i )
