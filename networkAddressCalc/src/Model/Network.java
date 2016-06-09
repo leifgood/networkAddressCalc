@@ -4,27 +4,17 @@ import java.util.ArrayList;
 
 public class Network {
 	private IPv4Address ipv4Networkmask;
-	private NetworkClass networkClass;
 	private ISP ipv6ISP;
 	private ArrayList<Subnet> subnets;
-	private String name;
+	private int ipv4Praefix;
 	
 	public Network(){
 		ipv4Networkmask = null;
-		networkClass = null;
 		ipv6ISP = null;
 		subnets = new ArrayList<Subnet>();
-		name = "";
+		ipv4Praefix = -1;
 	}
 	
-	public Network(IPv4Address ipv4Networkmask, NetworkClass networkClass,
-			ISP ipv6isp, ArrayList<Subnet> subnets, String name) {
-		this.ipv4Networkmask = ipv4Networkmask;
-		this.networkClass = networkClass;
-		ipv6ISP = ipv6isp;
-		this.subnets = subnets;
-		this.name = name;
-	}
 	
 	public void AddSubnet( Subnet subnet ){
 		for (Subnet sub : subnets) {
@@ -44,12 +34,6 @@ public class Network {
 	public void setIpv4Networkmask(IPv4Address ipv4Networkmask) {
 		this.ipv4Networkmask = ipv4Networkmask;
 	}
-	public NetworkClass getNetworkClass() {
-		return networkClass;
-	}
-	public void setNetworkClass(NetworkClass networkClass) {
-		this.networkClass = networkClass;
-	}
 	public ISP getIpv6ISP() {
 		return ipv6ISP;
 	}
@@ -63,14 +47,6 @@ public class Network {
 		this.subnets = subnets;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Subnet getSubnetByName(String selectedItem) {
 		for (Subnet subnet : subnets) {
 			if( subnet.getDepartment().equals(selectedItem) )
@@ -79,14 +55,28 @@ public class Network {
 		throw new IllegalArgumentException("Unerwarteter Fehler");
 	}
 
-	public int getPraefixByClass() {
-		switch( this.networkClass )
-		{
-		case A: return 8; 
-		case B: return 16;
-		case C: return 24;
-		default: throw new IllegalArgumentException("WTF has happend here!"); 
-		}
+	public int getIpv4Praefix() {
+		return ipv4Praefix;
+	}
+
+	public void setIpv4Praefix(int ipv4Praefix) {
+		this.ipv4Praefix = ipv4Praefix;
+	}
+
+	public boolean hasIpv6() {
+		return ipv6ISP != null;
+	}
+
+
+	public IPv4Address createSubnetID(int ipv4Praefix2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public IPv6Address createIPv6Subnet() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
