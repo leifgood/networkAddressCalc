@@ -19,10 +19,18 @@ public class NetworkFrame extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 
+	private NetworkPresenter networkpresenter;
+
 	public static void main(String[] args) {
 	}
 
-	public NetworkFrame() {
+	public NetworkFrame( NetworkPresenter networkpresenter )
+	{
+		this.networkpresenter = networkpresenter;
+		init();
+	}
+	
+	public void init() {
 		setTitle("Network");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1177, 719);

@@ -2,21 +2,15 @@ package GUI;
 
 import java.awt.FlowLayout;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 public class AddNetworkDialog extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txt_IPv4;
@@ -24,22 +18,9 @@ public class AddNetworkDialog extends JDialog {
 	private JTextField txt_IPv6;
 	private JTextField txt_IPv6_prefix;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
-		try {
-			AddNetworkDialog dialog = new AddNetworkDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public AddNetworkDialog() {
 		setTitle("Add Network");
 		setBounds(100, 100, 430, 208);
@@ -49,68 +30,41 @@ public class AddNetworkDialog extends JDialog {
 		getContentPane().add(contentPanel);
 		
 		JLabel lbl_IPv4 = new JLabel("IPv4");
+		lbl_IPv4.setBounds(15, 19, 32, 14);
 		
 		JLabel lbl_IPv6 = new JLabel("IPv6");
+		lbl_IPv6.setBounds(15, 60, 32, 14);
 		
 		txt_IPv4 = new JTextField();
+		txt_IPv4.setBounds(57, 16, 297, 20);
 		txt_IPv4.setColumns(10);
 		
 		JLabel lbl_IPv4_Slash = new JLabel("/");
+		lbl_IPv4_Slash.setBounds(358, 19, 4, 14);
 		
 		txt_IPv4_prefix = new JTextField();
+		txt_IPv4_prefix.setBounds(366, 16, 38, 20);
 		txt_IPv4_prefix.setColumns(10);
 		
 		txt_IPv6 = new JTextField();
+		txt_IPv6.setBounds(57, 54, 297, 20);
 		txt_IPv6.setColumns(10);
 		
 		JLabel lbl_IPv6_Slash = new JLabel("/");
+		lbl_IPv6_Slash.setBounds(358, 57, 4, 14);
 		
 		txt_IPv6_prefix = new JTextField();
+		txt_IPv6_prefix.setBounds(366, 54, 38, 20);
 		txt_IPv6_prefix.setColumns(10);
-		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lbl_IPv4)
-						.addComponent(lbl_IPv6))
-					.addGap(10)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(txt_IPv4, GroupLayout.PREFERRED_SIZE, 307, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lbl_IPv4_Slash)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txt_IPv4_prefix, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(txt_IPv6, GroupLayout.PREFERRED_SIZE, 307, GroupLayout.PREFERRED_SIZE)
-							.addGap(4)
-							.addComponent(lbl_IPv6_Slash, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-							.addGap(4)
-							.addComponent(txt_IPv6_prefix, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lbl_IPv4)
-						.addComponent(txt_IPv4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txt_IPv4_prefix, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lbl_IPv4_Slash))
-					.addGap(18)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lbl_IPv6)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-							.addComponent(txt_IPv6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_contentPanel.createSequentialGroup()
-								.addGap(3)
-								.addComponent(lbl_IPv6_Slash))
-							.addComponent(txt_IPv6_prefix, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-		);
-		contentPanel.setLayout(gl_contentPanel);
+		contentPanel.setLayout(null);
+		contentPanel.add(lbl_IPv4);
+		contentPanel.add(lbl_IPv6);
+		contentPanel.add(txt_IPv4);
+		contentPanel.add(lbl_IPv4_Slash);
+		contentPanel.add(txt_IPv4_prefix);
+		contentPanel.add(txt_IPv6);
+		contentPanel.add(lbl_IPv6_Slash);
+		contentPanel.add(txt_IPv6_prefix);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 137, 414, 33);

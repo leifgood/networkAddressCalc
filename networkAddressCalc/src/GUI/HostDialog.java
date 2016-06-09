@@ -10,10 +10,18 @@ public class HostDialog extends JDialog {
 	
 	private static final long serialVersionUID = 1L;
 	private JTable table;
+	private HostPresenter hostpresenter;
+
 	public static void main(String[] args) {
 	}
+
+	public HostDialog( HostPresenter hostpresenter )
+	{
+		this.hostpresenter = hostpresenter;
+		init();
+	}
 	
-	public HostDialog() {
+	public void init() {
 		setTitle("Hosts");
 		setBounds(100, 100, 1175, 719);
 		getContentPane().setLayout(null);
