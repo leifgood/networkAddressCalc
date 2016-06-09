@@ -19,16 +19,16 @@ public class SubnetDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
-	private SubnetPresenter subnetpresenter;
+//	private SubnetPresenter subnetpresenter;
 
 	public static void main(String[] args) {
 	}
 
-	public SubnetDialog( SubnetPresenter subnetpresenter )
-	{
-		this.subnetpresenter = subnetpresenter;
-		init();
-	}
+//	public SubnetDialog( SubnetPresenter subnetpresenter )
+//	{
+//		this.subnetpresenter = subnetpresenter;
+//		init();
+//	}
 	
 	public void init() {
 		setTitle("Subnet");
