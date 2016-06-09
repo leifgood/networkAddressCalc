@@ -7,28 +7,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class HostDialog extends JDialog {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTable table;
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
-		try {
-			HostDialog dialog = new HostDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
-
-	/**
-	 * Create the dialog.
-	 */
+	
 	public HostDialog() {
 		setTitle("Hosts");
 		setBounds(100, 100, 1175, 719);
@@ -91,7 +75,7 @@ public class HostDialog extends JDialog {
 		}
 	}
 	
-	public String getIPv4(){
+	public String getSelectedItem(){
 		return (String) table.getModel().getValueAt(table.getSelectedRow(),table.getSelectedColumn());
 	}
 

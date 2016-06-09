@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,32 +15,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class NetworkFrame extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NetworkFrame frame = new NetworkFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public NetworkFrame() {
 		setTitle("Network");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,20 +33,28 @@ public class NetworkFrame extends JFrame {
 		JButton save = new JButton("Save");
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//presenter.verifySave
 			}
 		});
 		
 		JButton load = new JButton("Load");
 		load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//presenter.verifyLoad
 			}
 		});
 		
 		JButton add = new JButton("Add");
-		
-		JButton editSubnet = new JButton("Delete");
-		editSubnet.addActionListener(new ActionListener() {
+		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//presenter.verifyAdd
+			}
+		});
+		
+		JButton delete = new JButton("Delete");
+		delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//presenter.verifyDelete
 			}
 		});
 		
@@ -90,7 +78,7 @@ public class NetworkFrame extends JFrame {
 							.addGap(10)
 							.addComponent(add, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE)
 							.addGap(10)
-							.addComponent(editSubnet, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE)
+							.addComponent(delete, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE)
 							.addGap(10)
 							.addComponent(openSubnets, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -108,7 +96,7 @@ public class NetworkFrame extends JFrame {
 						.addComponent(save, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(load, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(add, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-						.addComponent(editSubnet, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+						.addComponent(delete, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(openSubnets, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
 		);
 		
@@ -160,4 +148,8 @@ public class NetworkFrame extends JFrame {
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
 	}
+	public String getSelectedItem(){
+		return (String) table.getModel().getValueAt(table.getSelectedRow(),table.getSelectedColumn());
+	}
+	
 }
