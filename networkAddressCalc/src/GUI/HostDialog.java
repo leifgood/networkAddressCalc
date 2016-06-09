@@ -90,5 +90,9 @@ public class HostDialog extends JDialog {
 			getContentPane().add(ok);
 		}
 	}
+	
+	public String getIPv4(){
+		return (String) table.getModel().getValueAt(table.getSelectedRow(),table.getSelectedColumn());
+	}
 
 }
