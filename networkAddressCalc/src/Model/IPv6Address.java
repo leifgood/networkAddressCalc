@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.ArrayList;
+import javax.activity.InvalidActivityException;
 
 public class IPv6Address {
 	private ISP isp;
@@ -43,81 +43,38 @@ public class IPv6Address {
 		NetworkID = networkID;
 	}
 	
-//	public String toHex(){
-//		String hex = isp.toHex() + ":" + subnetID.toHex() + ":";
-//		for( int i = 0; i < NetworkID.length; ++i )
-//		{
-//			hex += NetworkID[i].toHex();
-//			if( i != NetworkID.length - 1)
-//				hex += ":";
-//		}
-//			return hex;
-//		}
-	
-	public static IPv6Address generateFromString( String string ){
-		if( string.contains("::"))
-			string =  generateStringFromZeroCompression( string );
-		String[] splitstring = string.split(":");
-		if( splitstring.length != 8 )
-			throw new IllegalArgumentException( "Syntaxfehler in der IPv6 Adresse" );
-		ArrayList<IPv6AddressBlock> blocks = new ArrayList<IPv6AddressBlock>();
-		for (String str : splitstring) {
-			blocks.add(IPv6AddressBlock.generateFromString( str ) );
+	@Override
+	public String toString(){
+		String hex = isp.toHex();
+		for (Short sh : subnetID) {
+			hex += Integer.toHexString(sh);
 		}
-		IPv6Address adr = new IPv6Address();
-//		adr.setIsp( new ISP( (IPv6AddressBlock[]) blocks.subList(0, 2).toArray() ) );
-//		adr.setSubnetID(blocks.get(3));
-//		adr.setNetworkID( (IPv6AddressBlock[]) blocks.subList(4, blocks.size() - 1).toArray() );
-		return adr;
-	}
+		for (Short sh : NetworkID) {
+			hex += Integer.toHexString(sh);
+		}
+		String result = "";
+		for( int i = 0; i < hex.length(); ++i ){
+			result += hex.charAt(i);
+			if( i > 0 && i % 4 == 0 && i < hex.length() - 1 )
+				result += ":";
+		}
+		return result;
+		}
 
-	private static String generateStringFromZeroCompression(String string) {
-		String[] splitstring = string.split("::");
-		if( splitstring.length != 2 )
-			throw new IllegalArgumentException( "Syntaxfehler in der IPv6 Adresse" );
-		String[] lhs;
-		String[] rhs;
-		
-		if( splitstring[0].length() == 0 )
-			lhs = null;
-		else
-			lhs = splitstring[0].split(":");
-		
-		if( splitstring[1].length() == 0 )
-			rhs = null;
-		else
-			rhs = splitstring[1].split(":");
-		
-		int zeroBlockCount;
-		String returnString = "";
-		
-		if( lhs == null ){
-			zeroBlockCount = 8 - rhs.length;
-			for( int i = 0; i < zeroBlockCount; ++i )
-				returnString += "0:";
-			returnString += splitstring[1];
+	public static IPv6Address addOne(IPv6Address ipv6address) throws InvalidActivityException {
+		int i = ipv6address.NetworkID.length -1;
+		boolean abort = false;
+		while( !abort ){
+			if( i < 0 )
+				throw new InvalidActivityException("Die IPv6 Adresse kann nicht erhöht werden, da dies maximale Anzahl Hosts erreicht wurde.");
+			ipv6address.NetworkID[i]++;
+			if( ipv6address.NetworkID[i] == 16 ){
+				ipv6address.NetworkID[i] = 0;
+				--i;
+			}
+			else
+				abort = true;
 		}
-			
-		else if( rhs == null ){
-			zeroBlockCount = 8 - lhs.length;
-			returnString += splitstring[0];
-			for( int i = 0; i < zeroBlockCount; ++i )
-					returnString += ":0";
-		}
-			
-		else{
-			zeroBlockCount = 8 - ( lhs.length + rhs.length );
-			returnString += splitstring[0];
-			for( int i = 0; i < zeroBlockCount; ++i )
-					returnString += ":0";
-			returnString += ":" + splitstring[1];
-		}
-		return returnString;
-			
-	}
-
-	public static IPv6Address addOne(IPv6Address ipv6address) {
-		// TODO Auto-generated method stub
-		return null;
+		return ipv6address;
 	}
 }

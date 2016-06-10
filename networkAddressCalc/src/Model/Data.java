@@ -6,7 +6,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -48,19 +47,9 @@ public class Data {
 	public void save() throws Exception{
 		
 		if( !Files.exists(SERIALIZED_FILE_DIR) )
-			try {
-				Files.createDirectory(SERIALIZED_FILE_DIR);
-			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
+			Files.createDirectory(SERIALIZED_FILE_DIR);
 		if( !Files.exists(SERIALIZED_FILE_NAME) )
-			try {
-				Files.createFile(SERIALIZED_FILE_NAME);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			Files.createFile(SERIALIZED_FILE_NAME);
 		
 		XMLEncoder encoder = null;
 		encoder = new XMLEncoder( new BufferedOutputStream( new FileOutputStream(SERIALIZED_FILE_NAME.toString())));
