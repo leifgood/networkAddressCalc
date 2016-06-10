@@ -70,6 +70,15 @@ public class Subnet {
 		hosts.remove(host);
 	}
 	
+	public Host getHostByIPString( String ipString ){
+		IPv4Address ip = IPv4Address.generateFromString(ipString);
+		for (Host host : hosts) {
+			if( host.getIpv4Address().equals(ip) )
+				return host;
+		}
+		return null;
+	}
+	
 	public ArrayList<IPv4Address> getAllIPv4Addresses(){
 		int power = 32 - ipv4Praefix;
 		int hostCount = (int) (Math.pow(2, power) - 2);
