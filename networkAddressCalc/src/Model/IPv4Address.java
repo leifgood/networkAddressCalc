@@ -113,4 +113,12 @@ public class IPv4Address {
 		}
 		return new IPv4Address(bytes);
 	}
+
+	public IPv4Address plus(int diff) {
+		IPv4Address address = new IPv4Address(this);
+		for( int i = 0; i < diff; ++i){
+			address = addOne(address);
+		}
+		return address;
+	}
 }

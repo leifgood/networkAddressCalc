@@ -19,13 +19,13 @@ public class SubnetDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
-//	private SubnetPresenter subnetpresenter;
-//
-//	public SubnetDialog( SubnetPresenter subnetpresenter )
-//	{
-//		this.subnetpresenter = subnetpresenter;
-//		init();
-//	}
+	private SubnetPresenter subnetpresenter;
+
+	public SubnetDialog( SubnetPresenter subnetpresenter )
+	{
+		this.subnetpresenter = subnetpresenter;
+		init();
+	}
 	
 	public void init() {
 		setTitle("Subnet");
@@ -37,21 +37,21 @@ public class SubnetDialog extends JDialog {
 		JButton add = new JButton("Add");
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//presenter.verifyAdd
+				//subnetpresenter.verifyAdd();
 			}
 		});
 		
 		JButton delete = new JButton("Delete");
 		delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//presenter.verifyDelete
+				//subnetpresenter.verifyDelete();
 			}
 		});
 		
 		JButton openHosts = new JButton("Hosts...");
 		openHosts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//presenter.openHosts
+				//subnetpresenter.openHosts();
 			}
 		});
 		

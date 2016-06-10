@@ -20,8 +20,16 @@ public class AddSubnetDialog extends JDialog {
 	private JPanel panel_1;
 	private JButton save;
 	private JButton cancel;
+	
+	private AddSubnetPresenter addnetworkpresenter;
+	
+	public AddSubnetDialog( AddSubnetPresenter addsubnetpresenter )
+	{
+		this.addsubnetpresenter = addsubnetpresenter;
+		init();
+	}
 
-	public AddSubnetDialog() {
+	public void init() {
 		setTitle("Add Subnet");
 		setBounds(100, 100, 430, 210);
 		getContentPane().setLayout(null);

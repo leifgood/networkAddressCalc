@@ -1,4 +1,4 @@
-package GUI;
+ package GUI;
 
 import java.awt.FlowLayout;
 
@@ -17,8 +17,16 @@ public class AddNetworkDialog extends JDialog {
 	private JTextField txt_IPv4_prefix;
 	private JTextField txt_IPv6;
 	private JTextField txt_IPv6_prefix;
+	
+	private AddNetworkPresenter addnetworkpresenter;
+	
+		public AddNetworkDialog( AddNetworkPresenter addnetworkpresenter )
+		{
+			this.addnetworkpresenter = addnetworkpresenter;
+			init();
+		}
 
-	public AddNetworkDialog() {
+	public void init() {
 		setTitle("Add Network");
 		setBounds(100, 100, 430, 208);
 		getContentPane().setLayout(null);

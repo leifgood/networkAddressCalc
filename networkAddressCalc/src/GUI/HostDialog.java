@@ -10,13 +10,13 @@ public class HostDialog extends JDialog {
 	
 	private static final long serialVersionUID = 1L;
 	private JTable table;
-//	private HostPresenter hostpresenter;
-//
-//	public HostDialog( HostPresenter hostpresenter )
-//	{
-//		this.hostpresenter = hostpresenter;
-//		init();
-//	}
+	private HostPresenter hostpresenter;
+
+	public HostDialog( HostPresenter hostpresenter )
+	{
+		this.hostpresenter = hostpresenter;
+		init();
+	}
 	
 	public void init() {
 		setTitle("Hosts");
