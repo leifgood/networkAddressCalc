@@ -20,10 +20,7 @@ public class SubnetDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 //	private SubnetPresenter subnetpresenter;
-
-	public static void main(String[] args) {
-	}
-
+//
 //	public SubnetDialog( SubnetPresenter subnetpresenter )
 //	{
 //		this.subnetpresenter = subnetpresenter;

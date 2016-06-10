@@ -18,9 +18,6 @@ public class AddNetworkDialog extends JDialog {
 	private JTextField txt_IPv6;
 	private JTextField txt_IPv6_prefix;
 
-	public static void main(String[] args) {
-	}
-
 	public AddNetworkDialog() {
 		setTitle("Add Network");
 		setBounds(100, 100, 430, 208);

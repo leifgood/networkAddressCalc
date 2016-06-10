@@ -19,16 +19,13 @@ public class NetworkFrame extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 
-	private NetworkPresenter networkpresenter;
-
-	public static void main(String[] args) {
-	}
-
-	public NetworkFrame( NetworkPresenter networkpresenter )
-	{
-		this.networkpresenter = networkpresenter;
-		init();
-	}
+//	private NetworkPresenter networkpresenter;
+//
+//	public NetworkFrame( NetworkPresenter networkpresenter )
+//	{
+//		this.networkpresenter = networkpresenter;
+//		init();
+//	}
 	
 	public void init() {
 		setTitle("Network");
@@ -69,6 +66,7 @@ public class NetworkFrame extends JFrame {
 		JButton openSubnets = new JButton("Subnets...");
 		openSubnets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//presenter.verifySubnets
 			}
 		});
 		
