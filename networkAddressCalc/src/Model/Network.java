@@ -17,7 +17,6 @@ public class Network {
 		ipv4Praefix = -1;
 	}
 	
-	
 	public void AddSubnet( Subnet subnet ){
 		for (Subnet sub : subnets) {
 			if( subnet.getDepartment().equals(sub.getDepartment()) )
