@@ -16,30 +16,18 @@ import javax.swing.table.DefaultTableModel;
 
 public class SubnetDialog extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
+	private SubnetPresenter subnetpresenter;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			SubnetDialog dialog = new SubnetDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public SubnetDialog( SubnetPresenter subnetpresenter )
+	{
+		this.subnetpresenter = subnetpresenter;
+		init();
 	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public SubnetDialog() {
+	
+	public void init() {
 		setTitle("Subnet");
 		setBounds(100, 100, 1175, 719);
 		getContentPane().setLayout(new BorderLayout());
@@ -47,14 +35,25 @@ public class SubnetDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
 		JButton add = new JButton("Add");
+		add.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//subnetpresenter.verifyAdd();
+			}
+		});
 		
 		JButton delete = new JButton("Delete");
 		delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//subnetpresenter.verifyDelete();
 			}
 		});
 		
 		JButton openHosts = new JButton("Hosts...");
+		openHosts.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//subnetpresenter.openHosts();
+			}
+		});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
@@ -128,5 +127,8 @@ public class SubnetDialog extends JDialog {
 		));
 		scrollPane.setViewportView(table);
 		contentPanel.setLayout(gl_contentPanel);
+	}
+	public String getSelectedItem(){
+		return (String) table.getModel().getValueAt(table.getSelectedRow(),table.getSelectedColumn());
 	}
 }

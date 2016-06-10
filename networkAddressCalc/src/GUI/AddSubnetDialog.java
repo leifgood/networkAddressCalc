@@ -13,33 +13,23 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 public class AddSubnetDialog extends JDialog {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JTextField txt_Subnetname;
 	private JTextField txt_Hostcount;
 	private JPanel panel_1;
 	private JButton save;
 	private JButton cancel;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			AddSubnetDialog dialog = new AddSubnetDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	
+	private AddSubnetPresenter addnetworkpresenter;
+	
+	public AddSubnetDialog( AddSubnetPresenter addsubnetpresenter )
+	{
+		this.addsubnetpresenter = addsubnetpresenter;
+		init();
 	}
 
-	/**
-	 * Create the dialog.
-	 */
-	public AddSubnetDialog() {
+	public void init() {
 		setTitle("Add Subnet");
 		setBounds(100, 100, 430, 210);
 		getContentPane().setLayout(null);

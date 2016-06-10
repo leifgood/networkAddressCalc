@@ -7,29 +7,18 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class HostDialog extends JDialog {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTable table;
+	private HostPresenter hostpresenter;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			HostDialog dialog = new HostDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public HostDialog( HostPresenter hostpresenter )
+	{
+		this.hostpresenter = hostpresenter;
+		init();
 	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public HostDialog() {
+	
+	public void init() {
 		setTitle("Hosts");
 		setBounds(100, 100, 1175, 719);
 		getContentPane().setLayout(null);
@@ -89,6 +78,10 @@ public class HostDialog extends JDialog {
 			ok.setBounds(925, 634, 220, 36);
 			getContentPane().add(ok);
 		}
+	}
+	
+	public String getSelectedItem(){
+		return (String) table.getModel().getValueAt(table.getSelectedRow(),table.getSelectedColumn());
 	}
 
 }
