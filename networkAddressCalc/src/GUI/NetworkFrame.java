@@ -13,19 +13,23 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Presenter.NetworkPresenter;
+
 public class NetworkFrame extends JFrame {
+	public NetworkFrame() {
+	}
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
 
-//	private NetworkPresenter networkpresenter;
-//
-//	public NetworkFrame( NetworkPresenter networkpresenter )
-//	{
-//		this.networkpresenter = networkpresenter;
-//		init();
-//	}
+	private NetworkPresenter networkpresenter;
+
+	public NetworkFrame( NetworkPresenter networkpresenter )
+	{
+		this.networkpresenter = networkpresenter;
+		init();
+	}
 	
 	public void init() {
 		setTitle("Network");
@@ -38,35 +42,35 @@ public class NetworkFrame extends JFrame {
 		JButton save = new JButton("Save");
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//presenter.verifySave
+				networkpresenter.verifySave();
 			}
 		});
 		
 		JButton load = new JButton("Load");
 		load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//presenter.verifyLoad
+				networkpresenter.verifyLoad();
 			}
 		});
 		
 		JButton add = new JButton("Add");
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//presenter.verifyAdd
+				networkpresenter.verifyAdd();
 			}
 		});
 		
 		JButton delete = new JButton("Delete");
 		delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//presenter.verifyDelete
+				networkpresenter.verifyDelete();
 			}
 		});
 		
 		JButton openSubnets = new JButton("Subnets...");
 		openSubnets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//presenter.verifySubnets
+				networkpresenter.verifySubnets();
 			}
 		});
 		
