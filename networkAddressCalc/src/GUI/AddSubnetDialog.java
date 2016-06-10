@@ -12,6 +12,10 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import Presenter.AddSubnetPresenter;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class AddSubnetDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -21,7 +25,7 @@ public class AddSubnetDialog extends JDialog {
 	private JButton save;
 	private JButton cancel;
 	
-	private AddSubnetPresenter addnetworkpresenter;
+	private AddSubnetPresenter addsubnetpresenter;
 	
 	public AddSubnetDialog( AddSubnetPresenter addsubnetpresenter )
 	{
@@ -80,10 +84,20 @@ public class AddSubnetDialog extends JDialog {
 		panel_1.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		save = new JButton("Save");
+		save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addsubnetpresenter.verifySave();
+			}
+		});
 		save.setActionCommand("OK");
 		panel_1.add(save);
 		
 		cancel = new JButton("Cancel");
+		cancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addsubnetpresenter.verifyCancel();
+			}
+		});
 		cancel.setActionCommand("Cancel");
 		panel_1.add(cancel);
 	}

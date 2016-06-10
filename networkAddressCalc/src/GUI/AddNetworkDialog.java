@@ -9,6 +9,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import Presenter.AddNetworkPresenter;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class AddNetworkDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -77,12 +81,22 @@ public class AddNetworkDialog extends JDialog {
 			getContentPane().add(buttonPane);
 			{
 				JButton save = new JButton("Save");
+				save.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						addnetworkpresenter.verifySave();
+					}
+				});
 				save.setActionCommand("OK");
 				buttonPane.add(save);
 				getRootPane().setDefaultButton(save);
 			}
 			{
 				JButton cancel = new JButton("Cancel");
+				cancel.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						addnetworkpresenter.verifyCancel();
+					}
+				});
 				cancel.setActionCommand("Cancel");
 				buttonPane.add(cancel);
 			}

@@ -14,6 +14,8 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Presenter.SubnetPresenter;
+
 public class SubnetDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -37,21 +39,21 @@ public class SubnetDialog extends JDialog {
 		JButton add = new JButton("Add");
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//subnetpresenter.verifyAdd();
+				subnetpresenter.verifyAdd();
 			}
 		});
 		
 		JButton delete = new JButton("Delete");
 		delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//subnetpresenter.verifyDelete();
+				subnetpresenter.verifyDelete();
 			}
 		});
 		
 		JButton openHosts = new JButton("Hosts...");
 		openHosts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//subnetpresenter.openHosts();
+				subnetpresenter.verifyHosts();
 			}
 		});
 		
