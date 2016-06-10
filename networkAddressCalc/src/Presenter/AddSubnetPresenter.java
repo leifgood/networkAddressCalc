@@ -18,7 +18,7 @@ public class AddSubnetPresenter {
 		this.dialog = dialog;
 	}
 	
-	public void verifyOK() {
+	public void verifySave() {
 		// TODO speichere neues Subnet in Liste
 		dialog.dispose();
 	}
