@@ -20,7 +20,7 @@ public class AddNetworkPresenter {
 		this.dialog = dialog;
 	}
 
-	public void verifyOK() {
+	public void verifySave() {
 		// TODO abfrage ob Felder korrekt ausgefüllt wurden
 		int dialogresult = JOptionPane.showConfirmDialog(null, "Do you want to create Subnets?", "Confirmation", JOptionPane.YES_NO_OPTION);
 		if (dialogresult == JOptionPane.YES_OPTION) {
