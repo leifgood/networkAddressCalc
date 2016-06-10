@@ -38,7 +38,11 @@ public class NetworkPresenter {
 	}
 	
 	public void verifySubnets() {
-		
+//		Network network = new Network();
+//		SubnetPresenter subnetPresenter = new SubnetPresenter(network);
+//		SubnetDialog subnetDialog = new SubnetDialog(subnetPresenter);
+//		subnetPresenter.setDialog(subnetDialog);
+//		subnetDialog.setVisible(true);
 	}
 
 }

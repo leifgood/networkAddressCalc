@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
+import javax.activity.InvalidActivityException;
 import javax.management.InstanceNotFoundException;
 
 public class Subnet {
@@ -21,18 +22,27 @@ public class Subnet {
 		ipv6SubnetID = null;
 	}
 	
+	public Subnet(Subnet subnet) {
+		department = subnet.department;
+		ipv4Praefix = subnet.ipv4Praefix;
+		hosts = subnet.hosts;
+		network = subnet.network;
+		ipv4SubnetID = subnet.ipv4SubnetID;
+		ipv6SubnetID = subnet.ipv6SubnetID;
+	}
+
 	public void setByHostCount( int hostCount, String department ) throws Exception{
 		setDepartment(department);
 		this.setIpv4Praefix(createPraefix(hostCount));
-		this.setIpv4SubnetID( network.createSubnetID(ipv4Praefix) );
+		this.setIpv4SubnetID( network.createSubnetID(this) );
 		if ( ipv4SubnetID == null )
 			throw new IllegalArgumentException( "Das Subnet passt nicht mehr ins Netzwerk");
 		if( network.hasIpv6() )
-			this.setIpv6SubnetID( network.createIPv6Subnet() );
+			this.setIpv6SubnetID( network.createIPv6Subnet( hostCount ) );
 		createHosts( hostCount );
 	}
 	
-	private void createHosts(int hostCount){
+	private void createHosts(int hostCount) throws InvalidActivityException{
 		IPv4Address ipv4address = new IPv4Address( ipv4SubnetID );
 		IPv6Address ipv6address = network.hasIpv6() ? new IPv6Address( ipv6SubnetID ) : null;
 		for( int i = 0; i < hostCount; ++i )
@@ -60,12 +70,21 @@ public class Subnet {
 		hosts.remove(host);
 	}
 	
+	public Host getHostByIPString( String ipString ){
+		IPv4Address ip = IPv4Address.generateFromString(ipString);
+		for (Host host : hosts) {
+			if( host.getIpv4Address().equals(ip) )
+				return host;
+		}
+		return null;
+	}
+	
 	public ArrayList<IPv4Address> getAllIPv4Addresses(){
 		int power = 32 - ipv4Praefix;
 		int hostCount = (int) (Math.pow(2, power) - 2);
 		if( hostCount <= 0 )
 			return null;
-		IPv4Address temp = ipv4SubnetID;
+		IPv4Address temp = new IPv4Address(ipv4SubnetID);
 		ArrayList<IPv4Address> addresses = new ArrayList<IPv4Address>();
 		do
 			{
@@ -95,6 +114,15 @@ public class Subnet {
 		}
 		return usedAddresses;
 	} 
+	
+	private IPv4Address createBroadcastID() throws InvalidActivityException{
+		int power = 32 - ipv4Praefix;
+		if( power <= 0 )
+			throw new InvalidActivityException("This Subnet is illegal (has less than 2 Addresses!)");
+		int diff = (int) (Math.pow(2, power) - 1);
+		IPv4Address broadcastID = ipv4SubnetID.plus(diff);
+		return broadcastID;
+	}
 	
 	public SubnetMask GetSubnetMask(){
 		return new SubnetMask( ipv4Praefix );
@@ -158,4 +186,15 @@ public class Subnet {
 		this.ipv6SubnetID = ipv6SubnetID;
 	}
 	
+	public boolean isIPv4Overlapping( Subnet other ) throws InvalidActivityException{
+		if( other.getAllIPv4Addresses().contains(this.ipv4SubnetID) )
+			return true;
+		for (IPv4Address address : this.getAllIPv4Addresses() ) {
+			if( other.getAllIPv4Addresses().contains(address) )
+				return true;
+		}
+		if( other.getAllIPv4Addresses().contains(this.createBroadcastID()) )
+			return true;
+		return false;
+	}
 }
