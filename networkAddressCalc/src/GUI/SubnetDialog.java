@@ -81,7 +81,6 @@ public class SubnetDialog extends JDialog {
 						.addComponent(delete, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(openHosts, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
 		);
-		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -129,6 +128,6 @@ public class SubnetDialog extends JDialog {
 		contentPanel.setLayout(gl_contentPanel);
 	}
 	public String getSelectedItem(){
-		return (String) table.getModel().getValueAt(table.getSelectedRow(),table.getSelectedColumn());
+		return (String) table.getModel().getValueAt(table.getSelectedRow(),1);
 	}
 }

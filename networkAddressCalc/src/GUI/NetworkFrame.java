@@ -159,7 +159,7 @@ public class NetworkFrame extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	public String getSelectedItem(){
-		return (String) table.getModel().getValueAt(table.getSelectedRow(),table.getSelectedColumn());
+		return (String) table.getModel().getValueAt(table.getSelectedRow(),0);
 	}
 	
 }
