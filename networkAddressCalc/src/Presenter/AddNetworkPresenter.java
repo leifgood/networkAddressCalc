@@ -3,7 +3,11 @@ package Presenter;
 import javax.swing.JOptionPane;
 
 import GUI.AddNetworkDialog;
+import GUI.SubnetDialog;
 import Model.Data;
+import Model.IPv4Address;
+import Model.ISP;
+import Model.Network;
 
 public class AddNetworkPresenter {
 	
@@ -21,15 +25,25 @@ public class AddNetworkPresenter {
 	}
 
 	public void verifySave() {
-		// TODO abfrage ob Felder korrekt ausgefüllt wurden
+		Network network = new Network();
+		
+		network.setIpv4Networkmask(IPv4Address.generateFromString(ipv4FromComponent()));
+		network.setIpv4Praefix(Integer.parseInt(ipv4PraefixFromComponent()));
+		if (dialog.isCheckboxChecked()) {
+			ISP isp = new ISP();
+			isp.setISPPraefix(Integer.parseInt(ipv6PraefixFromComponent()));
+			isp.generateFromString(ipv6FromComponent());
+			network.setIpv6ISP(isp);
+		}
+		data.addNetwork(network);
+		
 		int dialogresult = JOptionPane.showConfirmDialog(null, "Do you want to create Subnets?", "Confirmation", JOptionPane.YES_NO_OPTION);
 		if (dialogresult == JOptionPane.YES_OPTION) {
-//			SubnetPresenter subnetPresenter = new SubnetPresenter(data);
-//			SubnetDialog subnetDialog = new SubnetDialog(subnetPresenter);
-//			subnetPresenter.setDialog(subnetDialog);
-//			subnetDialog.setVisible(true);
+			SubnetPresenter subnetPresenter = new SubnetPresenter(network);
+			SubnetDialog subnetDialog = new SubnetDialog(subnetPresenter);
+			subnetPresenter.setDialog(subnetDialog);
+			subnetDialog.setVisible(true);
 		}
-		
 	}
 	
 	public void verifyCancel() {
@@ -38,5 +52,4 @@ public class AddNetworkPresenter {
 			dialog.dispose();
 		}
 	}
-	
 }

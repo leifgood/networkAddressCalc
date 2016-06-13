@@ -2,8 +2,11 @@ package Presenter;
 
 import javax.swing.JOptionPane;
 
+import GUI.AddSubnetDialog;
+import GUI.HostDialog;
 import GUI.SubnetDialog;
 import Model.Network;
+import Model.Subnet;
 
 public class SubnetPresenter {
 
@@ -19,10 +22,10 @@ public class SubnetPresenter {
 	}
 
 	public void verifyAdd() {
-//		AddSubnetPresenter addSubnetPresenter = new AddSubnetPresenter(network);
-//		AddSubnetDialog addSubnetDialog = new AddSubnetDialog(addSubnetPresenter);
-//		addSubnetPresenter.setDialog(addSubnetDialog);
-//		addSubnetDialog.setVisible(true);
+		AddSubnetPresenter addSubnetPresenter = new AddSubnetPresenter(network);
+		AddSubnetDialog addSubnetDialog = new AddSubnetDialog(addSubnetPresenter);
+		addSubnetPresenter.setDialog(addSubnetDialog);
+		addSubnetDialog.setVisible(true);
 	}
 	
 	public void verifyDelete() {
@@ -36,10 +39,10 @@ public class SubnetPresenter {
 	}
 	
 	public void verifyHosts() {
-//		Subnet subnet = new Subnet();
-//		HostPresenter hostPresenter = new HostPresenter(subnet);
-//		HostDialog hostDialog = new HostDialog(hostPresenter);
-//		hostPresenter.setDialog(hostDialog);
-//		hostDialog.setVisible(true);
+		Subnet subnet = new Subnet();
+		HostPresenter hostPresenter = new HostPresenter(subnet);
+		HostDialog hostDialog = new HostDialog(hostPresenter);
+		hostPresenter.setDialog(hostDialog);
+		hostDialog.setVisible(true);
 	}
 }

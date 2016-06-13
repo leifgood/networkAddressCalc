@@ -1,6 +1,7 @@
 package Presenter;
 
 import GUI.HostDialog;
+import Model.Host;
 import Model.Subnet;
 
 public class HostPresenter {
@@ -18,5 +19,12 @@ public class HostPresenter {
 	
 	public void verifyOK() {
 		dialog.dispose();
+	}
+	
+	public verifyChange() {
+		String prevSelectedIP = getPreviousSelectedIP();
+		String prevSelectedName = getPreviousSelectedIP();
+		Host host = subnet.getHostByIPString(prevSelectedIP);
+		host.setName(prevSelectedName);
 	}
 }

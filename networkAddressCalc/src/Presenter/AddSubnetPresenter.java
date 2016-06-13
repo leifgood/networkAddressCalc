@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import GUI.AddSubnetDialog;
 import Model.Network;
+import Model.Subnet;
 
 public class AddSubnetPresenter {
 	
@@ -20,6 +21,9 @@ public class AddSubnetPresenter {
 	
 	public void verifySave() {
 		// TODO speichere neues Subnet in Liste
+		Subnet subnet = new Subnet();
+		subnet.setByHostCount(hostCountFromComponent(), departmentFromComponent());
+		network.AddSubnet(subnet);
 		dialog.dispose();
 	}
 	
