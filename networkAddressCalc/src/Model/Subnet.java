@@ -197,4 +197,11 @@ public class Subnet {
 			return true;
 		return false;
 	}
+	
+	public int getMaxHostCount(){
+		int i = 0;
+		while( Math.pow(2, i) - 2 < hosts.size() )
+			i++;
+		return (int) (Math.pow(2, i) - 2);
+	}
 }
