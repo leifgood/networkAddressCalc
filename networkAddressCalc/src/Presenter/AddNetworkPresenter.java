@@ -42,6 +42,7 @@ public class AddNetworkPresenter {
 				SubnetPresenter subnetPresenter = new SubnetPresenter(network);
 				SubnetDialog subnetDialog = new SubnetDialog(subnetPresenter);
 				subnetPresenter.setDialog(subnetDialog);
+				subnetDialog.setModal(true);
 				subnetDialog.setVisible(true);
 			}
 			dialog.getNetworkPresenter().updateUI();

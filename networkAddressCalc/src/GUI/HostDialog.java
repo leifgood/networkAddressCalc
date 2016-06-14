@@ -59,6 +59,11 @@ public class HostDialog extends JDialog{
 		getContentPane().add(ok);
 		
 		JButton changeDescription = new JButton("Change Description");
+		changeDescription.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				hostpresenter.verifyChange();
+			}
+		});
 		changeDescription.setBounds(695, 634, 220, 36);
 		getContentPane().add(changeDescription);
 	}
@@ -78,6 +83,11 @@ public class HostDialog extends JDialog{
 	    }
 	}
 		public String getSelectedItem(){
-			return (String) table.getModel().getValueAt(table.getSelectedRow(),1);
+			try{
+				return (String) table.getModel().getValueAt(table.getSelectedRow(),1);
+			}
+			catch(Exception e){
+				return null;
+			}
 		}
 }

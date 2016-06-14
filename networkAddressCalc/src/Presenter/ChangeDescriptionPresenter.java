@@ -8,10 +8,19 @@ import Model.Host;
 public class ChangeDescriptionPresenter {
 	
 	private ChangeDescriptionDialog dialog;
+	public ChangeDescriptionDialog getDialog() {
+		return dialog;
+	}
+
+	public void setDialog(ChangeDescriptionDialog dialog) {
+		this.dialog = dialog;
+	}
+
 	private Host host;
 	
 	public void verifySave() {
 		host.setName(dialog.descriptionNameFromComponent());
+		dialog.getHostPresenter().updateUI();
 		dialog.dispose();
 	}
 	

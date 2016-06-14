@@ -42,14 +42,15 @@ public class NetworkPresenter {
 		AddNetworkPresenter addNetworkPresenter = new AddNetworkPresenter(data);
 		AddNetworkDialog addNetworkDialog = new AddNetworkDialog(this, addNetworkPresenter);
 		addNetworkPresenter.setDialog(addNetworkDialog);
+		addNetworkDialog.setModal(true);
 		addNetworkDialog.setVisible(true);
 	}
 
 	public void updateUI() {
 		TableModel model = frame.getTable().getModel();
 		DefaultTableModel mod = (DefaultTableModel) model;
-		for( int i = 0; i < mod.getRowCount();++i )
-			mod.removeRow(i);
+		mod.setRowCount(0);
+		frame.getTable().revalidate();
 		for (Network net : data.getNetworks()) {
 			mod.addRow( new Object[] {net.getIpv4Networkmask().toDecimal(), net.getIpv4Networkmask().toBinary()} );
 		}
@@ -64,6 +65,7 @@ public class NetworkPresenter {
 				if (dialogResult == JOptionPane.YES_OPTION) {
 					IPv4Address ipv4 = IPv4Address.generateFromString(selectedItem);
 					data.deleteNetwork(data.getNetworkByIPv4(ipv4));
+					updateUI();
 				}
 			}
 		} catch (Exception e) {
@@ -80,6 +82,7 @@ public class NetworkPresenter {
 				SubnetPresenter subnetPresenter = new SubnetPresenter(network);
 				SubnetDialog subnetDialog = new SubnetDialog(subnetPresenter);
 				subnetPresenter.setDialog(subnetDialog);
+				subnetDialog.setModal(true);
 				subnetDialog.setVisible(true);
 			}
 		} catch (Exception e) {

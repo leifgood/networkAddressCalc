@@ -95,7 +95,7 @@ public class Subnet {
 		ArrayList<IPv4Address> addresses = new ArrayList<IPv4Address>();
 		do
 			{
-			addresses.add(IPv4Address.addOne(temp));
+			addresses.add(new IPv4Address( IPv4Address.addOne(temp) ));
 			--hostCount;
 			}while( hostCount > 0);
 		return addresses;
@@ -194,6 +194,10 @@ public class Subnet {
 	}
 	
 	public boolean isIPv4Overlapping( Subnet other ) throws InvalidActivityException{
+		if( other.getIpv4SubnetID().equals(ipv4SubnetID))
+			return true;
+		if( other.createBroadcastID().equals(ipv4SubnetID))
+			return true;
 		if( other.getAllIPv4Addresses().contains(this.ipv4SubnetID) )
 			return true;
 		for (IPv4Address address : this.getAllIPv4Addresses() ) {

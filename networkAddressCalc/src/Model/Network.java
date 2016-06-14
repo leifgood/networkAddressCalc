@@ -100,11 +100,15 @@ public class Network {
 		for (IPv4Address iPv4Address : possibleSubnetIDs) {
 			Subnet temp = new Subnet( subnet );
 			temp.setIpv4SubnetID(iPv4Address);
+			boolean isUsed = false;
 			for (Subnet other : subnets) {
-				if( !temp.isIPv4Overlapping(other))
-					continue;
+				if( !isUsed && temp.isIPv4Overlapping(other)){
+					isUsed = true;
+					break;
+				}	
 			}
-			return iPv4Address;
+			if( !isUsed)
+				return iPv4Address;
 		}
 		return null;
 	}

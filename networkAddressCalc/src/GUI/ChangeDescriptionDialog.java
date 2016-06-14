@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Presenter.ChangeDescriptionPresenter;
+import Presenter.HostPresenter;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,11 +25,16 @@ public class ChangeDescriptionDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JLabel lbl_DescriptionName;
 	private JTextField txt_DescriptionName;
-	
+	HostPresenter parent;
 	private ChangeDescriptionPresenter changedescriptionpresenter;
 	
-	public ChangeDescriptionDialog( ChangeDescriptionPresenter changedescriptionpresenter )
+	public HostPresenter getHostPresenter(){
+		return parent;
+	}
+	
+	public ChangeDescriptionDialog( HostPresenter parent, ChangeDescriptionPresenter changedescriptionpresenter )
 	{
+		this.parent = parent;
 		this.changedescriptionpresenter = changedescriptionpresenter;
 		init();
 	}

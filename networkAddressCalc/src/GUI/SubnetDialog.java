@@ -97,6 +97,11 @@ public class SubnetDialog extends JDialog {
 		contentPanel.setLayout(gl_contentPanel);
 	}
 	public String getSelectedItem(){
-		return (String) table.getModel().getValueAt(table.getSelectedRow(),1);
+		try{
+			return (String) table.getModel().getValueAt(table.getSelectedRow(),1);
+		}
+		catch(Exception e){
+			return null;
+		}
 	}
 }
