@@ -21,10 +21,6 @@ public class HostPresenter {
 		dialog.dispose();
 	}
 	
-	public verifyChange() {
-		String prevSelectedIP = getPreviousSelectedIP();
-		String prevSelectedName = getPreviousSelectedIP();
-		Host host = subnet.getHostByIPString(prevSelectedIP);
-		host.setName(prevSelectedName);
+	public void verifyChange() {
 	}
 }

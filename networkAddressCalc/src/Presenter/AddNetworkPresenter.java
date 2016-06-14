@@ -12,7 +12,6 @@ import Model.Network;
 public class AddNetworkPresenter {
 	
 	private AddNetworkDialog dialog;
-	@SuppressWarnings("unused")
 	private Data data;
 	
 	public AddNetworkPresenter(Data data) {
@@ -27,12 +26,12 @@ public class AddNetworkPresenter {
 	public void verifySave() {
 		Network network = new Network();
 		
-		network.setIpv4Networkmask(IPv4Address.generateFromString(ipv4FromComponent()));
-		network.setIpv4Praefix(Integer.parseInt(ipv4PraefixFromComponent()));
+		network.setIpv4Networkmask(IPv4Address.generateFromString(dialog.ipv4FromComponent()));
+		network.setIpv4Praefix(Integer.parseInt(dialog.ipv4PraefixFromComponent()));
 		if (dialog.isCheckboxChecked()) {
 			ISP isp = new ISP();
-			isp.setISPPraefix(Integer.parseInt(ipv6PraefixFromComponent()));
-			isp.generateFromString(ipv6FromComponent());
+			isp.setISPPraefix(Integer.parseInt(dialog.ipv6PraefixFromComponent()));
+			isp.generateFromString(dialog.ipv6FromComponent());
 			network.setIpv6ISP(isp);
 		}
 		data.addNetwork(network);
@@ -44,6 +43,7 @@ public class AddNetworkPresenter {
 			subnetPresenter.setDialog(subnetDialog);
 			subnetDialog.setVisible(true);
 		}
+		dialog.dispose();
 	}
 	
 	public void verifyCancel() {

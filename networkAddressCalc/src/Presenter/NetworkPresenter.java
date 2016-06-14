@@ -54,11 +54,15 @@ public class NetworkPresenter {
 	}
 	
 	public void verifySubnets() {
-		Network network = new Network();
-		SubnetPresenter subnetPresenter = new SubnetPresenter(network);
-		SubnetDialog subnetDialog = new SubnetDialog(subnetPresenter);
-		subnetPresenter.setDialog(subnetDialog);
-		subnetDialog.setVisible(true);
+		String selectedItem = frame.getSelectedItem();
+		if (selectedItem != null) {
+			IPv4Address ipv4 = IPv4Address.generateFromString(selectedItem);
+			Network network = data.getNetworkByIPv4(ipv4);
+			SubnetPresenter subnetPresenter = new SubnetPresenter(network);
+			SubnetDialog subnetDialog = new SubnetDialog(subnetPresenter);
+			subnetPresenter.setDialog(subnetDialog);
+			subnetDialog.setVisible(true);
+		}
 	}
 
 	public void setFrame(NetworkFrame frame) {

@@ -39,10 +39,13 @@ public class SubnetPresenter {
 	}
 	
 	public void verifyHosts() {
-		Subnet subnet = new Subnet();
-		HostPresenter hostPresenter = new HostPresenter(subnet);
-		HostDialog hostDialog = new HostDialog(hostPresenter);
-		hostPresenter.setDialog(hostDialog);
-		hostDialog.setVisible(true);
+		String selectedItem = dialog.getSelectedItem();
+		if (selectedItem != null) {
+			Subnet subnet = network.getSubnetByName(selectedItem);
+			HostPresenter hostPresenter = new HostPresenter(subnet);
+			HostDialog hostDialog = new HostDialog(hostPresenter);
+			hostPresenter.setDialog(hostDialog);
+			hostDialog.setVisible(true);
+		}
 	}
 }

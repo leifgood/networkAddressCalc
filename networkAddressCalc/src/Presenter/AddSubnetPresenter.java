@@ -20,11 +20,14 @@ public class AddSubnetPresenter {
 	}
 	
 	public void verifySave() {
-		// TODO speichere neues Subnet in Liste
 		Subnet subnet = new Subnet();
-		subnet.setByHostCount(hostCountFromComponent(), departmentFromComponent());
-		network.AddSubnet(subnet);
-		dialog.dispose();
+		try {
+			subnet.setByHostCount(Integer.valueOf(dialog.hostCountFromComponent()), dialog.departmentFromComponent());
+			network.AddSubnet(subnet);
+			dialog.dispose();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 	
 	public void verifyCancel() {
