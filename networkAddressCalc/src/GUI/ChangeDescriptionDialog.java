@@ -12,6 +12,9 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import Presenter.ChangeDescriptionPresenter;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
