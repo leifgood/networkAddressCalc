@@ -1,7 +1,6 @@
 package Presenter;
 
 import GUI.HostDialog;
-import Model.Host;
 import Model.Subnet;
 
 public class HostPresenter {
@@ -22,5 +21,7 @@ public class HostPresenter {
 	}
 	
 	public void verifyChange() {
+		ChangeDescriptionPresenter presenter = new ChangeDescriptionPresenter();
+		presenter.setHost(subnet.getHostByIPString(dialog.getSelectedItem()));
 	}
 }
