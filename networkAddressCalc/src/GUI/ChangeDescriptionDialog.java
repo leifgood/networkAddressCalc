@@ -88,4 +88,7 @@ public class ChangeDescriptionDialog extends JDialog {
 			}
 		}
 	}
+	public String descriptionNameFromComponent(){
+		return txt_DescriptionName.getText();
+	}
 }
