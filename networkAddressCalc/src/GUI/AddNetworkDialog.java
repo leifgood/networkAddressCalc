@@ -102,4 +102,16 @@ public class AddNetworkDialog extends JDialog {
 			}
 		}
 	}
+	public String ipv4FromComponent(){
+		return txt_IPv4.getText();
+	}
+	public String ipv6FromComponent(){
+		return txt_IPv6.getText();
+	}
+	public String ipv4PraefixFromComponent(){
+		return txt_IPv4_prefix.getText();
+	}
+	public String ipv6PraefixFromComponent(){
+		return txt_IPv6_prefix.getText();
+	}
 }

@@ -101,5 +101,11 @@ public class AddSubnetDialog extends JDialog {
 		cancel.setActionCommand("Cancel");
 		panel_1.add(cancel);
 	}
+	public String hostCountFromComponent(){
+		return txt_Hostcount.getText();
+	}
+	public String departmentFromComponent(){
+		return txt_Subnetname.getText();
+	}
 
 }
