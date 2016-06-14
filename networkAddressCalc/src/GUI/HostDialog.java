@@ -20,6 +20,9 @@ public class HostDialog extends JDialog{
 	MyTableModel model = new MyTableModel();
 	JTable table = new JTable(model);
 
+	public JTable getTable() {
+		return table;
+	}
 	// MAIN, temporär zur GUI exklusiven ausführung, später entfernen
 	public static void main(String[] args) {
 		Subnet subnet = new Subnet();
@@ -65,10 +68,7 @@ public class HostDialog extends JDialog{
 		private static final long serialVersionUID = 1L;
 	
 		public MyTableModel(){
-			super(new Object[][] {
-				{null, null, null},
-				{null, null, null}
-			},new String[]{ 
+			super(new Object[][] {},new String[]{ 
 				"Description", "Hostaddress", "Binary"
 			});
 		}

@@ -24,26 +24,31 @@ public class AddNetworkPresenter {
 	}
 
 	public void verifySave() {
-		Network network = new Network();
-		
-		network.setIpv4Networkmask(IPv4Address.generateFromString(dialog.ipv4FromComponent()));
-		network.setIpv4Praefix(Integer.parseInt(dialog.ipv4PraefixFromComponent()));
-		if (dialog.isCheckboxChecked()) {
-			ISP isp = new ISP();
-			isp.setISPPraefix(Integer.parseInt(dialog.ipv6PraefixFromComponent()));
-			isp.generateFromString(dialog.ipv6FromComponent());
-			network.setIpv6ISP(isp);
+		try {
+			Network network = new Network();
+			
+			network.setIpv4Networkmask(IPv4Address.generateFromString(dialog.ipv4FromComponent()));
+			network.setIpv4Praefix(Integer.parseInt(dialog.ipv4PraefixFromComponent()));
+			if (dialog.isCheckboxChecked()) {
+				ISP isp = new ISP();
+				isp.setISPPraefix(Integer.parseInt(dialog.ipv6PraefixFromComponent()));
+				isp.generateFromString(dialog.ipv6FromComponent());
+				network.setIpv6ISP(isp);
+			}
+			data.addNetwork(network);
+			
+			int dialogresult = JOptionPane.showConfirmDialog(null, "Do you want to create Subnets?", "Confirmation", JOptionPane.YES_NO_OPTION);
+			if (dialogresult == JOptionPane.YES_OPTION) {
+				SubnetPresenter subnetPresenter = new SubnetPresenter(network);
+				SubnetDialog subnetDialog = new SubnetDialog(subnetPresenter);
+				subnetPresenter.setDialog(subnetDialog);
+				subnetDialog.setVisible(true);
+			}
+			dialog.getNetworkPresenter().updateUI();
+			dialog.dispose();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-		data.addNetwork(network);
-		
-		int dialogresult = JOptionPane.showConfirmDialog(null, "Do you want to create Subnets?", "Confirmation", JOptionPane.YES_NO_OPTION);
-		if (dialogresult == JOptionPane.YES_OPTION) {
-			SubnetPresenter subnetPresenter = new SubnetPresenter(network);
-			SubnetDialog subnetDialog = new SubnetDialog(subnetPresenter);
-			subnetPresenter.setDialog(subnetDialog);
-			subnetDialog.setVisible(true);
-		}
-		dialog.dispose();
 	}
 	
 	public void verifyCancel() {

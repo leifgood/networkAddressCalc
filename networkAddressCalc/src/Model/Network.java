@@ -61,7 +61,7 @@ public class Network {
 	}
 
 	public void setIpv4Praefix(int ipv4Praefix) {
-		if(ipv4Praefix < 1)
+		if(ipv4Praefix < 1 || ipv4Praefix > 24)
 			throw new IllegalArgumentException("No possible ipv4Praefix");
 		this.ipv4Praefix = ipv4Praefix;
 	}
@@ -102,15 +102,16 @@ public class Network {
 			temp.setIpv4SubnetID(iPv4Address);
 			for (Subnet other : subnets) {
 				if( !temp.isIPv4Overlapping(other))
-					return iPv4Address;
+					continue;
 			}
+			return iPv4Address;
 		}
 		return null;
 	}
 
 
 	private ArrayList<IPv4Address> calculateIPv4SubnetIDs(int ipPraefix) {
-		int diff = this.ipv4Praefix - ipPraefix;
+		int diff = ipPraefix - this.ipv4Praefix;
 		int subnetCount = (int) Math.pow(2, diff);
 		int subnetSize = (int) Math.pow(2, ( 32 - ipPraefix ));
 		ArrayList<IPv4Address> possibleSubnetIDs = new ArrayList<IPv4Address>();

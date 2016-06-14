@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.activity.InvalidActivityException;
 import javax.management.InstanceNotFoundException;
+import javax.swing.JOptionPane;
 
 public class Subnet {
 	private String department;
@@ -49,7 +50,8 @@ public class Subnet {
 		{
 			Host host = new Host();
 			host.setName("Host" + i);
-			host.setIpv4Address( IPv4Address.addOne(ipv4address) );
+			IPv4Address ip = new IPv4Address(IPv4Address.addOne(ipv4address));
+			host.setIpv4Address( ip );
 			host.setIpv6Address( network.hasIpv6() ? IPv6Address.addOne(ipv6address) : null );
 			hosts.add(host);
 		}
@@ -71,12 +73,17 @@ public class Subnet {
 	}
 	
 	public Host getHostByIPString( String ipString ){
-		IPv4Address ip = IPv4Address.generateFromString(ipString);
-		for (Host host : hosts) {
-			if( host.getIpv4Address().equals(ip) )
-				return host;
+		try {
+			IPv4Address ip = IPv4Address.generateFromString(ipString);
+			for (Host host : hosts) {
+				if( host.getIpv4Address().equals(ip) )
+					return host;
+			}
+			return null;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return null;
 		}
-		return null;
 	}
 	
 	public ArrayList<IPv4Address> getAllIPv4Addresses(){

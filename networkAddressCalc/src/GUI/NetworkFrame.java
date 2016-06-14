@@ -23,6 +23,10 @@ public class NetworkFrame extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 
+	public JTable getTable() {
+		return table;
+	}
+
 	private NetworkPresenter networkpresenter;
 
 	public NetworkFrame( NetworkPresenter networkpresenter )
@@ -112,43 +116,7 @@ public class NetworkFrame extends JFrame {
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
+			new Object[][]{},
 			new String[] {
 				"Network address", "Binary"
 			}

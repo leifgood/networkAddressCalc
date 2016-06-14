@@ -120,7 +120,7 @@ public class ISP {
 	}
 
 	public void setISPPraefix(int iSPPraefix) {
-		if( iSPPraefix <= 0 && iSPPraefix % 4 != 0)
+		if( iSPPraefix <= 0 && iSPPraefix % 4 != 0 && iSPPraefix > 96)
 			throw new IllegalArgumentException("Kein gültiger Präfix");
 		ISPPraefix = iSPPraefix;
 	}

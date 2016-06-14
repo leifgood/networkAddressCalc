@@ -1,6 +1,8 @@
 package Presenter;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import GUI.AddSubnetDialog;
 import GUI.HostDialog;
@@ -23,7 +25,7 @@ public class SubnetPresenter {
 
 	public void verifyAdd() {
 		AddSubnetPresenter addSubnetPresenter = new AddSubnetPresenter(network);
-		AddSubnetDialog addSubnetDialog = new AddSubnetDialog(addSubnetPresenter);
+		AddSubnetDialog addSubnetDialog = new AddSubnetDialog(this, addSubnetPresenter);
 		addSubnetPresenter.setDialog(addSubnetDialog);
 		addSubnetDialog.setVisible(true);
 	}
@@ -45,7 +47,18 @@ public class SubnetPresenter {
 			HostPresenter hostPresenter = new HostPresenter(subnet);
 			HostDialog hostDialog = new HostDialog(hostPresenter);
 			hostPresenter.setDialog(hostDialog);
+			hostPresenter.updateUI();
 			hostDialog.setVisible(true);
+		}
+	}
+	
+	public void updateUI(){
+		TableModel model = dialog.getTable().getModel();
+		DefaultTableModel mod = (DefaultTableModel)model;
+		for( int i = 0; i < mod.getRowCount();++i )
+			mod.removeRow(i);
+		for (Subnet subnet : network.getSubnets()) {
+			mod.addRow( new Object[]{ subnet.getIpv4SubnetID().toDecimal(), subnet.getDepartment(), subnet.getMaxHostCount() });
 		}
 	}
 }

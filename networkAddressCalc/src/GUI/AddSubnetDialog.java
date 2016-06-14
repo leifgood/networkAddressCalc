@@ -13,6 +13,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import Presenter.AddSubnetPresenter;
+import Presenter.SubnetPresenter;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -24,11 +26,13 @@ public class AddSubnetDialog extends JDialog {
 	private JPanel panel_1;
 	private JButton save;
 	private JButton cancel;
+	private SubnetPresenter parent;
 	
 	private AddSubnetPresenter addsubnetpresenter;
 	
-	public AddSubnetDialog( AddSubnetPresenter addsubnetpresenter )
+	public AddSubnetDialog( SubnetPresenter parent, AddSubnetPresenter addsubnetpresenter )
 	{
+		this.setSubnetPresenter(parent);
 		this.addsubnetpresenter = addsubnetpresenter;
 		init();
 	}
@@ -106,6 +110,14 @@ public class AddSubnetDialog extends JDialog {
 	}
 	public String departmentFromComponent(){
 		return txt_Subnetname.getText();
+	}
+
+	public SubnetPresenter getSubnetPresenter() {
+		return parent;
+	}
+
+	public void setSubnetPresenter(SubnetPresenter parent) {
+		this.parent = parent;
 	}
 
 }

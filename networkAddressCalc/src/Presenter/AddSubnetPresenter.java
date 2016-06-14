@@ -22,8 +22,10 @@ public class AddSubnetPresenter {
 	public void verifySave() {
 		Subnet subnet = new Subnet();
 		try {
+			subnet.setNetwork(network);
 			subnet.setByHostCount(Integer.valueOf(dialog.hostCountFromComponent()), dialog.departmentFromComponent());
 			network.AddSubnet(subnet);
+			dialog.getSubnetPresenter().updateUI();
 			dialog.dispose();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
