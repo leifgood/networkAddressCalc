@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import Presenter.AddNetworkPresenter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 public class AddNetworkDialog extends JDialog {
 
@@ -21,6 +22,7 @@ public class AddNetworkDialog extends JDialog {
 	private JTextField txt_IPv4_prefix;
 	private JTextField txt_IPv6;
 	private JTextField txt_IPv6_prefix;
+	JCheckBox chk_IPv6 = new JCheckBox("use IPv6");
 	
 	private AddNetworkPresenter addnetworkpresenter;
 	
@@ -74,6 +76,10 @@ public class AddNetworkDialog extends JDialog {
 		contentPanel.add(txt_IPv6);
 		contentPanel.add(lbl_IPv6_Slash);
 		contentPanel.add(txt_IPv6_prefix);
+		
+
+		chk_IPv6.setBounds(10, 93, 97, 23);
+		contentPanel.add(chk_IPv6);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 137, 414, 33);
@@ -113,5 +119,8 @@ public class AddNetworkDialog extends JDialog {
 	}
 	public String ipv6PraefixFromComponent(){
 		return txt_IPv6_prefix.getText();
+	}
+	public boolean isCheckboxChecked(){
+		return chk_IPv6.isSelected();
 	}
 }
