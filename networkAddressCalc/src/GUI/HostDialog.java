@@ -46,8 +46,6 @@ public class HostDialog extends JDialog{
 		getContentPane().add(scrollPane);
 		scrollPane.setViewportView(table);		
 		
-		//table.add
-		
 		JButton ok = new JButton("OK");
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -56,6 +54,10 @@ public class HostDialog extends JDialog{
 		});
 		ok.setBounds(925, 634, 220, 36);
 		getContentPane().add(ok);
+		
+		JButton changeDescription = new JButton("Change Description");
+		changeDescription.setBounds(695, 634, 220, 36);
+		getContentPane().add(changeDescription);
 	}
 	
 	//MyTableModel
@@ -78,5 +80,4 @@ public class HostDialog extends JDialog{
 		public String getSelectedItem(){
 			return (String) table.getModel().getValueAt(table.getSelectedRow(),1);
 		}
-
 }
