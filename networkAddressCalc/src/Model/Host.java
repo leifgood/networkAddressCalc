@@ -1,6 +1,12 @@
 package Model;
 
-public class Host {
+import java.io.Serializable;
+
+public class Host implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private IPv4Address ipv4Address;
 	private IPv6Address ipv6Address;
 	private String name;

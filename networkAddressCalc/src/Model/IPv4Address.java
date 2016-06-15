@@ -1,8 +1,14 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class IPv4Address {
+public class IPv4Address implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

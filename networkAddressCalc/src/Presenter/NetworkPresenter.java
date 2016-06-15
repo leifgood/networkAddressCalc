@@ -33,6 +33,7 @@ public class NetworkPresenter {
 		try {
 			Data data = Data.load();
 			this.data = data;
+			updateUI();
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.OK_OPTION);
 		}
@@ -82,6 +83,7 @@ public class NetworkPresenter {
 				SubnetPresenter subnetPresenter = new SubnetPresenter(network);
 				SubnetDialog subnetDialog = new SubnetDialog(subnetPresenter);
 				subnetPresenter.setDialog(subnetDialog);
+				subnetPresenter.updateUI();
 				subnetDialog.setModal(true);
 				subnetDialog.setVisible(true);
 			}

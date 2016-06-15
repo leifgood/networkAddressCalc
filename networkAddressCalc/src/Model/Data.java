@@ -1,11 +1,12 @@
 package Model;
 
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,9 +14,11 @@ import java.util.ArrayList;
 
 import javax.swing.filechooser.FileSystemView;
 
-public class Data {
+public class Data implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private static final Path SERIALIZED_FILE_DIR = Paths.get(FileSystemView.getFileSystemView().getDefaultDirectory().getPath(), "NetworkCalc");
-	private static final Path SERIALIZED_FILE_NAME = Paths.get(SERIALIZED_FILE_DIR.toString(), "save.xml");
+	private static final Path SERIALIZED_FILE_NAME = Paths.get(SERIALIZED_FILE_DIR.toString(), "save.dat");
 	
 	private ArrayList<Network> networks;
 	
@@ -43,7 +46,6 @@ public class Data {
 		networks.remove(network);
 	}
 	
-	@SuppressWarnings("resource")
 	public void save() throws Exception{
 		
 		if( !Files.exists(SERIALIZED_FILE_DIR) )
@@ -51,16 +53,22 @@ public class Data {
 		if( !Files.exists(SERIALIZED_FILE_NAME) )
 			Files.createFile(SERIALIZED_FILE_NAME);
 		
-		XMLEncoder encoder = null;
-		encoder = new XMLEncoder( new BufferedOutputStream( new FileOutputStream(SERIALIZED_FILE_NAME.toString())));
-		encoder.writeObject(this);
+		OutputStream fos = null;
+
+		  fos = new FileOutputStream( SERIALIZED_FILE_NAME.toString() );
+		  ObjectOutputStream o = new ObjectOutputStream( fos );
+		  o.writeObject( this );
+		  fos.close();
+		
 	}
 	
-	@SuppressWarnings("resource")
 	public static Data load() throws Exception{
-		XMLDecoder decoder=null;
-		decoder=new XMLDecoder(new BufferedInputStream(new FileInputStream(SERIALIZED_FILE_NAME.toString())));
-		Data data=(Data)decoder.readObject();
+		
+		InputStream fis = new FileInputStream( SERIALIZED_FILE_NAME.toString() );
+		@SuppressWarnings("resource")
+		ObjectInputStream o = new ObjectInputStream( fis );
+		Data data = (Data)o.readObject();
+
 		return data;
 	}
 	

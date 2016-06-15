@@ -1,10 +1,15 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.activity.InvalidActivityException;
 
-public class Network {
+public class Network implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private IPv4Address ipv4Networkmask;
 	private ISP ipv6ISP;
 	private ArrayList<Subnet> subnets;

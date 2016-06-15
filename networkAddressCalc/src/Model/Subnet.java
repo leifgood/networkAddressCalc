@@ -1,12 +1,17 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.activity.InvalidActivityException;
 import javax.management.InstanceNotFoundException;
 import javax.swing.JOptionPane;
 
-public class Subnet {
+public class Subnet implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String department;
 	private int ipv4Praefix;
 	private ArrayList<Host> hosts;

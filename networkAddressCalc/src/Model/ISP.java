@@ -1,8 +1,13 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ISP { 
+public class ISP implements Serializable{ 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Short[] values;
 	private int ISPPraefix;
 	public ISP( Short[] values ) {

@@ -1,8 +1,14 @@
 package Model;
 
+import java.io.Serializable;
+
 import javax.activity.InvalidActivityException;
 
-public class IPv6Address {
+public class IPv6Address implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ISP isp;
 	private Short[] subnetID;
 	private Short[] NetworkID;

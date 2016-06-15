@@ -1,8 +1,13 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SubnetMask {
+public class SubnetMask implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private byte[] bytes;
 
 	public byte[] getBytes() {
