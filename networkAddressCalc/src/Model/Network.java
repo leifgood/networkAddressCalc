@@ -131,9 +131,32 @@ public class Network implements Serializable{
 	}
 
 
-	public IPv6Address createIPv6Subnet( int hostCount ) {
-		// TODO Auto-generated method stub
-		return null;
+	public IPv6Address createIPv6Subnet( int hostCount ) throws InvalidActivityException {
+		IPv6Address address = new IPv6Address();
+		address.setIsp(this.ipv6ISP);
+		address.setSubnetID( calculateNewIPv6SubnetID() );
+		int zeroBlocks = 7 - ipv6ISP.getValues().length / 4;
+		Short[] networkID = new Short[zeroBlocks * 4];
+		for( int i = 0; i < networkID.length; ++i){
+			networkID[i] = 0;
+		}
+		address.setNetworkID(networkID);
+		return address;
+	}
+
+	private Short[] calculateNewIPv6SubnetID() throws InvalidActivityException {
+		int size = this.subnets.size();
+		if( size == 65536 )
+			throw new InvalidActivityException( "No space for new subnet");
+		Short[] subnetID = new Short[4];
+		subnetID[0] = (short) (size / 4096);
+		size = size % 4096;
+		subnetID[1] = (short) (size / 256);
+		size = size % 256;
+		subnetID[2] = (short) (size / 16); 
+		size = size % 16;
+		subnetID[3] = (short) (size); 
+		return subnetID;
 	}
 	
 	

@@ -42,7 +42,12 @@ public class HostPresenter {
 		mod.setRowCount(0);
 		dialog.getTable().revalidate();
 		for (Host host : subnet.getHosts() ) {
-			mod.addRow( new Object[]{host.getName(), host.getIpv4Address().toDecimal(), host.getIpv4Address().toBinary()});
+			String ipString = "IPv4: " + host.getIpv4Address().toDecimal();
+			String ipStringBinary = "IPv4: " + host.getIpv4Address().toBinary();
+			if( host.getIpv6Address() != null ){
+				ipString += "; IPv6: " + host.getIpv6Address().toString();
+			}
+			mod.addRow( new Object[]{host.getName(), ipString, ipStringBinary});
 		}
 	}
 }

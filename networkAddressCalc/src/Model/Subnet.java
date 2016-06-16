@@ -57,7 +57,9 @@ public class Subnet implements Serializable{
 			host.setName("Host" + i);
 			IPv4Address ip = new IPv4Address(IPv4Address.addOne(ipv4address));
 			host.setIpv4Address( ip );
-			host.setIpv6Address( network.hasIpv6() ? IPv6Address.addOne(ipv6address) : null );
+			IPv6Address ipv6 = new IPv6Address(ipv6address);
+			ipv6address = IPv6Address.addOne(ipv6address);
+			host.setIpv6Address( network.hasIpv6() ? ipv6 : null );
 			hosts.add(host);
 		}
 	}

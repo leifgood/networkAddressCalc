@@ -61,7 +61,12 @@ public class SubnetPresenter {
 		mod.setRowCount(0);
 		dialog.getTable().revalidate();
 		for (Subnet subnet : network.getSubnets()) {
-			mod.addRow( new Object[]{ subnet.getIpv4SubnetID().toDecimal(), subnet.getDepartment(), subnet.getMaxHostCount() });
+			String ipString = "IPv4: " + subnet.getIpv4SubnetID().toDecimal();
+			String hostCount = String.valueOf( subnet.getHosts().size() ) + " of " + subnet.getMaxHostCount();
+			if( subnet.getIpv6SubnetID() != null ){
+				ipString += "; IPv6: " + subnet.getIpv6SubnetID().toString();
+			}
+			mod.addRow( new Object[]{ ipString, subnet.getDepartment(), hostCount });
 		}
 	}
 }
