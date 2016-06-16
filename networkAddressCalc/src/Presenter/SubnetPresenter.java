@@ -23,6 +23,10 @@ public class SubnetPresenter {
 		this.dialog = dialog;
 	}
 
+	public void verifyOK() {
+		dialog.dispose();
+	}
+	
 	public void verifyAdd() {
 		AddSubnetPresenter addSubnetPresenter = new AddSubnetPresenter(network);
 		AddSubnetDialog addSubnetDialog = new AddSubnetDialog(this, addSubnetPresenter);
