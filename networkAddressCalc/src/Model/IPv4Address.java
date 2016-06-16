@@ -105,16 +105,25 @@ public class IPv4Address implements Serializable{
 	}
 	
 	public static IPv4Address generateFromString( String string ) throws Exception {
-		String[] splitstring = string.split("\\.");
+		if( string.startsWith("IPv4:")){
+			string = string.replace("IPv4: ", "");
+			if( string.contains("IPv6:")){
+				string = string.split("IPv6:")[0].trim();
+			}
+			if( string.endsWith(";")){
+				string = string.substring(0, string.length() - 1);
+			}
+		}
+		String[] splitstring = string.trim().split("\\.");
 		if( splitstring.length != 4 )
 			throw new IllegalArgumentException( "Keine gültige IPv4Adresse eingegeben");
 		for (String str : splitstring) {
-			if( Integer.parseInt(str) < 0 || Integer.parseInt(str) > 255 )
+			if( Integer.parseInt(str.trim()) < 0 || Integer.parseInt(str.trim()) > 255 )
 				throw new IllegalArgumentException( "Kein gültiges Byte angegeben. Eingabe: " + str);
 		}
 		int[] bytes = new int[4];
 		for( int i = 0; i < 4; ++i){
-			bytes[i] = Integer.parseInt(splitstring[i]);
+			bytes[i] = Integer.parseInt(splitstring[i].trim());
 		}
 		return new IPv4Address(bytes);
 	}

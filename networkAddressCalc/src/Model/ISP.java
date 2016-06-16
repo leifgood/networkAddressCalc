@@ -1,7 +1,6 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class ISP implements Serializable{ 
 	/**
@@ -19,6 +18,13 @@ public class ISP implements Serializable{
 		ISPPraefix = -1;
 	}
 
+	public ISP(ISP isp) {
+		values = new Short[isp.getValues().length];
+		for( int i = 0; i < values.length; ++i ){
+			values[i] = isp.getValues()[i];
+		}
+	}
+
 	public Short[] getValues() {
 		return values;
 	}
@@ -32,9 +38,9 @@ public class ISP implements Serializable{
 	public String toBinary(){
 		String binary = "";
 		for( int i = 0; i < values.length; ++i){
-			binary += Integer.toBinaryString(values[i]); 
-			if( i > 0 && i % 4 == 0 && i < values.length - 1 )
+			if(i > 0 && i % 4 == 0)
 				binary += ":";
+			binary += Integer.toBinaryString(values[i]); 
 		}
 		return binary;
 	}
@@ -43,10 +49,8 @@ public class ISP implements Serializable{
 		String hex = "";
 		for( int i = 0; i < values.length; ++i){
 			hex += Integer.toHexString(values[i]); 
-			if( i > 0 && i % 4 == 0 && i < values.length - 1 )
-				hex += ":";
 		}
-		return hex;
+		return hex.toUpperCase();
 	}
 	
 
@@ -54,30 +58,50 @@ public class ISP implements Serializable{
 		String decimal = "";
 		for( int i = 0; i < values.length; ++i){
 			decimal += values[i];
-			if( i > 0 && i % 4 == 0 && i < values.length - 1 )
-				decimal += ":";
 		}
 		return decimal;
 	}
 	
+	public String toString(){
+		String temp = toHex();
+		String str = "";
+		for( int i = 0; i < values.length; ++i){
+			if( i > 0 && i % 4 == 0)
+				str += ":";
+			str += temp.charAt(i); 
+		}
+		str += "::";
+		return str.toUpperCase();
+	}
+	
 	public void generateFromString( String str ){
+		if( str.contains("IPv6: ")){
+			str = str.split("IPv6: ")[1];
+		}
 		if( str.contains("::") )
 			str = generateFullString(str);
 		String[] splitstring = str.split(":");
-		if( splitstring.length != ISPPraefix / 4 )
+		if( splitstring.length != ISPPraefix / 16 )
 			throw new IllegalArgumentException("Syntaxfehler in der ISP");
-		ArrayList<Short> blocks = new ArrayList<Short>();
-		for (String s : splitstring) {
-			for (char c : s.toCharArray()) {
-				String temp = "" + c;
-				Integer.parseInt(temp, 16);
-			}
+		for (int i = 0; i < splitstring.length; ++i) {
+			while( splitstring[i].length() < 4 )
+				splitstring[i] = "0" + splitstring[i]; 
 		}
-		this.setValues( (Short[]) ( blocks.toArray() ) );
+		Short[] blocks = new Short[ISPPraefix / 4];
+		for( int i = 0, j = 0; i < blocks.length; ++i ){
+			if( i > 0 && i % 4 == 0 )
+				++j;
+			blocks[i] = Short.parseShort("" + splitstring[j].charAt(i % 4), 16);
+		}
+		this.setValues( blocks );
 	}
 
 	private String generateFullString(String str) {
 		String[] splitstring = str.split("::");
+		if( splitstring.length == 1 ){
+			String temp = splitstring[0];
+			splitstring = new String[]{ temp, ""};
+		}
 		if( splitstring.length != 2 )
 			throw new IllegalArgumentException( "Syntaxfehler in der IPv6 Adresse" );
 		String[] lhs;
@@ -97,21 +121,21 @@ public class ISP implements Serializable{
 		String returnString = "";
 		
 		if( lhs == null ){
-			zeroBlockCount = ISPPraefix / 4 - rhs.length;
+			zeroBlockCount = ISPPraefix / 16 - rhs.length;
 			for( int i = 0; i < zeroBlockCount; ++i )
 				returnString += "0:";
 			returnString += splitstring[1];
 		}
 			
 		else if( rhs == null ){
-			zeroBlockCount = ISPPraefix / 4 - lhs.length;
+			zeroBlockCount = ISPPraefix / 16 - lhs.length;
 			returnString += splitstring[0];
 			for( int i = 0; i < zeroBlockCount; ++i )
 					returnString += ":0";
 		}
 			
 		else{
-			zeroBlockCount = ISPPraefix / 4 - ( lhs.length + rhs.length );
+			zeroBlockCount = ISPPraefix / 16 - ( lhs.length + rhs.length );
 			returnString += splitstring[0];
 			for( int i = 0; i < zeroBlockCount; ++i )
 					returnString += ":0";
@@ -125,7 +149,7 @@ public class ISP implements Serializable{
 	}
 
 	public void setISPPraefix(int iSPPraefix) {
-		if( iSPPraefix <= 0 && iSPPraefix % 4 != 0 && iSPPraefix > 96)
+		if( iSPPraefix <= 0 && iSPPraefix % 16 != 0 && iSPPraefix > 96)
 			throw new IllegalArgumentException("Kein gültiger Präfix");
 		ISPPraefix = iSPPraefix;
 	}

@@ -53,7 +53,14 @@ public class NetworkPresenter {
 		mod.setRowCount(0);
 		frame.getTable().revalidate();
 		for (Network net : data.getNetworks()) {
-			mod.addRow( new Object[] {net.getIpv4Networkmask().toDecimal(), net.getIpv4Networkmask().toBinary()} );
+			String ipString = "IPv4: " + net.getIpv4Networkmask().toDecimal();
+			String ipStringBinary = "IPv4: " + net.getIpv4Networkmask().toBinary();
+			if( net.hasIpv6() )
+			{
+				ipString += "; IPv6: " + net.getIpv6ISP().toString();
+				ipStringBinary += "; IPv6: " + net.getIpv6ISP().toBinary();
+			}
+			mod.addRow( new Object[] {ipString, ipStringBinary} );
 		}
 		frame.getTable().updateUI();
 	}

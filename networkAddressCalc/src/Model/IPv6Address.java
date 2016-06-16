@@ -11,18 +11,24 @@ public class IPv6Address implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private ISP isp;
 	private Short[] subnetID;
-	private Short[] NetworkID;
+	private Short[] networkID;
 	
 	public IPv6Address(){
 		isp = null;
 		subnetID = null;
-		NetworkID = null;
+		networkID = null;
 	}
 
 	public IPv6Address(IPv6Address clone) {
-		this.isp = clone.isp;
-		this.subnetID = clone.subnetID;
-		this.NetworkID = clone.NetworkID;
+		this.isp = new ISP( clone.isp );
+		this.subnetID = new Short[4];
+		this.subnetID[0] = clone.subnetID[0];
+		this.subnetID[1] = clone.subnetID[1];
+		this.subnetID[2] = clone.subnetID[2];
+		this.subnetID[3] = clone.subnetID[3];
+		this.networkID = new Short[clone.networkID.length];
+		for( int i = 0; i < this.networkID.length; ++i )
+			networkID[i] = clone.networkID[i];
 	}
 
 	public ISP getIsp() {
@@ -38,15 +44,19 @@ public class IPv6Address implements Serializable{
 	}
 
 	public void setSubnetID(Short[] subnetID) {
+		if( subnetID.length != 4 )
+			throw new IllegalArgumentException( "No correct SubnetID ");
 		this.subnetID = subnetID;
 	}
 
 	public Short[] getNetworkID() {
-		return NetworkID;
+		return networkID;
 	}
 
 	public void setNetworkID(Short[] networkID) {
-		NetworkID = networkID;
+		if( networkID.length % 4 != 0 || networkID.length <= 0 )
+			throw new IllegalArgumentException("no correct networkID");
+		this.networkID = networkID;
 	}
 	
 	@Override
@@ -55,27 +65,27 @@ public class IPv6Address implements Serializable{
 		for (Short sh : subnetID) {
 			hex += Integer.toHexString(sh);
 		}
-		for (Short sh : NetworkID) {
+		for (Short sh : networkID) {
 			hex += Integer.toHexString(sh);
 		}
 		String result = "";
 		for( int i = 0; i < hex.length(); ++i ){
-			result += hex.charAt(i);
-			if( i > 0 && i % 4 == 0 && i < hex.length() - 1 )
+			if( i > 0 && i % 4 == 0 )
 				result += ":";
+			result += hex.charAt(i);
 		}
-		return result;
+		return result.toUpperCase();
 		}
 
 	public static IPv6Address addOne(IPv6Address ipv6address) throws InvalidActivityException {
-		int i = ipv6address.NetworkID.length -1;
+		int i = ipv6address.networkID.length -1;
 		boolean abort = false;
 		while( !abort ){
 			if( i < 0 )
 				throw new InvalidActivityException("Die IPv6 Adresse kann nicht erhöht werden, da dies maximale Anzahl Hosts erreicht wurde.");
-			ipv6address.NetworkID[i]++;
-			if( ipv6address.NetworkID[i] == 16 ){
-				ipv6address.NetworkID[i] = 0;
+			ipv6address.networkID[i]++;
+			if( ipv6address.networkID[i] == 16 ){
+				ipv6address.networkID[i] = 0;
 				--i;
 			}
 			else
