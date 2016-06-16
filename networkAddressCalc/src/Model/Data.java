@@ -37,7 +37,7 @@ public class Data implements Serializable{
 	public void addNetwork( Network network){
 		for (Network net : networks) {
 			if( network.getIpv4Networkmask().equals(net.getIpv4Networkmask()))
-				throw new IllegalArgumentException("Die Netzwerkadresse " + network.getIpv4Networkmask().toDecimal() + " ist bereits belegt");
+				throw new IllegalArgumentException("The adressspace " + network.getIpv4Networkmask().toDecimal() + " is already used!");
 		}
 		networks.add(network);
 	}

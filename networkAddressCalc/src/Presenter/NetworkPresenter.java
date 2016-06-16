@@ -23,7 +23,9 @@ public class NetworkPresenter {
 	
 	public void verifySave() {
 		try {
-			data.save();
+			int result = JOptionPane.showConfirmDialog(null, "The old savefile would be overwritten! Continue?", "Save", JOptionPane.YES_NO_OPTION);
+			if( result == JOptionPane.YES_OPTION);
+				data.save();
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.OK_OPTION);
 		}
@@ -31,9 +33,13 @@ public class NetworkPresenter {
 	
 	public void verifyLoad() {
 		try {
-			Data data = Data.load();
-			this.data = data;
-			updateUI();
+			int result = JOptionPane.showConfirmDialog(null, "Your changes will be discarded! Continue?", "Save", JOptionPane.YES_NO_OPTION);
+			if( result == JOptionPane.YES_OPTION){
+				Data data = Data.load();
+				this.data = data;
+				updateUI();
+				JOptionPane.showMessageDialog(null, "Data loaded sucessfully", "Load", JOptionPane.INFORMATION_MESSAGE);
+			}
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.OK_OPTION);
 		}

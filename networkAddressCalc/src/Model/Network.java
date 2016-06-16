@@ -25,7 +25,7 @@ public class Network implements Serializable{
 	public void AddSubnet( Subnet subnet ){
 		for (Subnet sub : subnets) {
 			if( subnet.getDepartment().equals(sub.getDepartment()) )
-				throw new IllegalArgumentException("Es existiert bereits ein Subnet für die Abteilung " + sub.getDepartment());
+				throw new IllegalArgumentException("The department " + sub.getDepartment() + " has already a subnet!");
 		}
 		subnets.add( subnet);
 	}
@@ -58,7 +58,7 @@ public class Network implements Serializable{
 			if( subnet.getDepartment().equals(selectedItem) )
 				return subnet;
 		}
-		throw new IllegalArgumentException("Unerwarteter Fehler");
+		throw new IllegalArgumentException("Unexpected error occured!");
 	}
 
 	public int getIpv4Praefix() {
@@ -67,7 +67,7 @@ public class Network implements Serializable{
 
 	public void setIpv4Praefix(int ipv4Praefix) {
 		if(ipv4Praefix < 1 || ipv4Praefix > 24)
-			throw new IllegalArgumentException("No possible ipv4Praefix");
+			throw new IllegalArgumentException("No valid ipv4 prefix");
 		this.ipv4Praefix = ipv4Praefix;
 	}
 
@@ -100,7 +100,7 @@ public class Network implements Serializable{
 
 	public IPv4Address createSubnetID( Subnet subnet ) throws InvalidActivityException {
 		if( subnet.getIpv4Praefix() < this.ipv4Praefix )
-			throw new IllegalArgumentException("Das Subnet ist größer als das Netzwerk");
+			throw new IllegalArgumentException("No valid subnet! Subnet would be bigger than network.");
 		ArrayList<IPv4Address> possibleSubnetIDs = calculateIPv4SubnetIDs( subnet.getIpv4Praefix() );
 		for (IPv4Address iPv4Address : possibleSubnetIDs) {
 			Subnet temp = new Subnet( subnet );

@@ -39,7 +39,7 @@ public class IPv4Address implements Serializable{
 	
 	public IPv4Address( int[] bytes){
 		if( bytes.length != 4 )
-			throw new IllegalArgumentException( "Nicht genau 4 Bytes");
+			throw new IllegalArgumentException( "Not exactly 4 bytes given.");
 		this.bytes = bytes;
 	}
 	
@@ -116,10 +116,10 @@ public class IPv4Address implements Serializable{
 		}
 		String[] splitstring = string.trim().split("\\.");
 		if( splitstring.length != 4 )
-			throw new IllegalArgumentException( "Keine gültige IPv4Adresse eingegeben");
+			throw new IllegalArgumentException( "No valid IPv4 address given.");
 		for (String str : splitstring) {
 			if( Integer.parseInt(str.trim()) < 0 || Integer.parseInt(str.trim()) > 255 )
-				throw new IllegalArgumentException( "Kein gültiges Byte angegeben. Eingabe: " + str);
+				throw new IllegalArgumentException( "No valid byte. Input: " + str);
 		}
 		int[] bytes = new int[4];
 		for( int i = 0; i < 4; ++i){

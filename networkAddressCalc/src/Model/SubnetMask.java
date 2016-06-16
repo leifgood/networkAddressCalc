@@ -16,7 +16,7 @@ public class SubnetMask implements Serializable{
 
 	public void setBytes(byte[] bytes) {
 		if( !isValid( bytes ) )
-			throw new IllegalArgumentException("Keine gültige Subnetzmaske");
+			throw new IllegalArgumentException("No valid subnetmask");
 		this.bytes = bytes;
 	}
 
@@ -113,10 +113,10 @@ public class SubnetMask implements Serializable{
 	public static SubnetMask generateFromString( String string ){
 		String[] splitstring = string.split(".");
 		if( splitstring.length != 4 )
-			throw new IllegalArgumentException( "Keine gültige Subnetzmaske eingegeben");
+			throw new IllegalArgumentException( "No valid subnetmask entered!");
 		for (String str : splitstring) {
 			if( Integer.parseInt(str) < 0 || Integer.parseInt(str) > 255 )
-				throw new IllegalArgumentException( "Kein gültiges Byte angegeben. Eingabe: " + str);
+				throw new IllegalArgumentException( "No valid byte! Input: " + str);
 		}
 		byte[] bytes = new byte[4];
 		
@@ -129,7 +129,7 @@ public class SubnetMask implements Serializable{
 			checkString += mask.byteToBinaryString(bytes[i]);
 		}
 		if( !isValidSubnetMask(checkString) )
-			throw new IllegalArgumentException( "Keine gültige Subnetzmaske eingegeben");
+			throw new IllegalArgumentException( "No valid subnetmask entered!");
 		mask.setBytes(bytes);
 		return mask;
 	}

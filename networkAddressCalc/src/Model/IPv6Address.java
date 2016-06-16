@@ -45,7 +45,7 @@ public class IPv6Address implements Serializable{
 
 	public void setSubnetID(Short[] subnetID) {
 		if( subnetID.length != 4 )
-			throw new IllegalArgumentException( "No correct SubnetID ");
+			throw new IllegalArgumentException( "no correct subnetID ");
 		this.subnetID = subnetID;
 	}
 
@@ -55,7 +55,7 @@ public class IPv6Address implements Serializable{
 
 	public void setNetworkID(Short[] networkID) {
 		if( networkID.length % 4 != 0 || networkID.length <= 0 )
-			throw new IllegalArgumentException("no correct networkID");
+			throw new IllegalArgumentException("No correct networkID");
 		this.networkID = networkID;
 	}
 	
@@ -82,7 +82,7 @@ public class IPv6Address implements Serializable{
 		boolean abort = false;
 		while( !abort ){
 			if( i < 0 )
-				throw new InvalidActivityException("Die IPv6 Adresse kann nicht erhöht werden, da dies maximale Anzahl Hosts erreicht wurde.");
+				throw new InvalidActivityException("The maximal number of hosts in this network is reached!");
 			ipv6address.networkID[i]++;
 			if( ipv6address.networkID[i] == 16 ){
 				ipv6address.networkID[i] = 0;

@@ -31,7 +31,7 @@ public class ISP implements Serializable{
 
 	public void setValues( Short[] values) {
 		if( values.length != ISPPraefix / 4 )
-			throw new IllegalArgumentException( "Keine gültige ISP!");
+			throw new IllegalArgumentException( "No valid address space!");
 		this.values = values;
 	}
 	
@@ -82,7 +82,7 @@ public class ISP implements Serializable{
 			str = generateFullString(str);
 		String[] splitstring = str.split(":");
 		if( splitstring.length != ISPPraefix / 16 )
-			throw new IllegalArgumentException("Syntaxfehler in der ISP");
+			throw new IllegalArgumentException("Syntaxerror in IPv6 address space!");
 		for (int i = 0; i < splitstring.length; ++i) {
 			while( splitstring[i].length() < 4 )
 				splitstring[i] = "0" + splitstring[i]; 
@@ -103,7 +103,7 @@ public class ISP implements Serializable{
 			splitstring = new String[]{ temp, ""};
 		}
 		if( splitstring.length != 2 )
-			throw new IllegalArgumentException( "Syntaxfehler in der IPv6 Adresse" );
+			throw new IllegalArgumentException( "Syntaxerror in IPv6 address" );
 		String[] lhs;
 		String[] rhs;
 		
@@ -150,7 +150,7 @@ public class ISP implements Serializable{
 
 	public void setISPPraefix(int iSPPraefix) {
 		if( iSPPraefix <= 0 && iSPPraefix % 16 != 0 && iSPPraefix > 96)
-			throw new IllegalArgumentException("Kein gültiger Präfix");
+			throw new IllegalArgumentException("No valid prefix!");
 		ISPPraefix = iSPPraefix;
 	}
 	

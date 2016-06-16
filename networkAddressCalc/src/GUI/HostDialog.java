@@ -9,7 +9,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Model.Subnet;
 import Presenter.HostPresenter;
 
 public class HostDialog extends JDialog{
@@ -22,14 +21,6 @@ public class HostDialog extends JDialog{
 
 	public JTable getTable() {
 		return table;
-	}
-	// MAIN, temporär zur GUI exklusiven ausführung, später entfernen
-	public static void main(String[] args) {
-		Subnet subnet = new Subnet();
-		HostPresenter presenter = new HostPresenter( subnet );
-		HostDialog dialog = new HostDialog(presenter);
-		presenter.setDialog(dialog);
-		dialog.setVisible(true);
 	}
 	//Konstruktor
 	public HostDialog( HostPresenter hostpresenter )

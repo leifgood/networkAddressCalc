@@ -42,7 +42,7 @@ public class Subnet implements Serializable{
 		this.setIpv4Praefix(createPraefix(hostCount));
 		this.setIpv4SubnetID( network.createSubnetID(this) );
 		if ( ipv4SubnetID == null )
-			throw new IllegalArgumentException( "Das Subnet passt nicht mehr ins Netzwerk");
+			throw new IllegalArgumentException( "No space in the network for this subnet!");
 		if( network.hasIpv6() )
 			this.setIpv6SubnetID( network.createIPv6Subnet( hostCount ) );
 		createHosts( hostCount );
@@ -132,7 +132,7 @@ public class Subnet implements Serializable{
 	private IPv4Address createBroadcastID() throws InvalidActivityException{
 		int power = 32 - ipv4Praefix;
 		if( power <= 0 )
-			throw new InvalidActivityException("This Subnet is illegal (has less than 2 Addresses!)");
+			throw new InvalidActivityException("This subnet is illegal (has less than 2 addresses!)");
 		int diff = (int) (Math.pow(2, power) - 1);
 		IPv4Address broadcastID = ipv4SubnetID.plus(diff);
 		return broadcastID;
@@ -148,10 +148,10 @@ public class Subnet implements Serializable{
 
 	public void setDepartment(String department) throws Exception {
 		if( network == null )
-			throw new InstanceNotFoundException("Das Subnet ist noch keinem Netzwerk zugeordnet");
+			throw new InstanceNotFoundException("No network given for this subnet!");
 		for (Subnet net : network.getSubnets()) {
 			if( department.equals(net.getDepartment() ) )
-				throw new IllegalArgumentException("Das Netzwerk beinhaltet bereits die Abteilung " + department);
+				throw new IllegalArgumentException("The department " + department + " is already part of the network!");
 		}
 		this.department = department;
 	}
@@ -162,9 +162,9 @@ public class Subnet implements Serializable{
 
 	public void setIpv4Praefix(int ipv4Praefix) throws Exception {
 		if( network == null )
-			throw new InstanceNotFoundException("Das Subnetz ist noch keinem Netzwerk zugeordnet");
+			throw new InstanceNotFoundException("No network given for this subnet!");
 		if( ipv4Praefix < network.getIpv4Praefix() )
-			throw new IllegalArgumentException("Das Subnetz ist größer als das zugeordnete Netzwerk");
+			throw new IllegalArgumentException("The subnet is bigger than the given network!");
 		this.ipv4Praefix = ipv4Praefix;
 	}
 
